@@ -15,7 +15,7 @@
 		<meta property="og:image" content="https://raw.github.com/tastejs/todomvc/gh-pages/site-assets/screenshot.png">
 		<meta property="og:description" content="Helping you select an MV* framework - Todo apps for Backbone.js, Ember.js, AngularJS, Spine and many more">
 		<link rel="shortcut icon" href="site-assets/favicon.ico">
-		<script src="bower_components/platform/platform.js"></script>
+		<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 		<!-- build:remove -->
 		<script src="bower_components/prefixfree/prefixfree.min.js"></script>
 		<!-- endbuild -->
@@ -53,29 +53,29 @@
 				</div>
 				<div class="col-md-8">
 					<h2>Examples</h2>
-					<style shim-shadowdom>
+					<style is="custom-style">
+						paper-tabs {
+							--paper-tabs-selection-bar-color: #b12d2b;
+						}
+
+						paper-tab {
+							--paper-tab-ink: #b12d2b;
+						}
+
 						paper-tabs, core-toolbar {
 							color: rgb(53, 53, 53);
 							background-color: #f4f4f4;
 							font-family: 'Helvetica Neue', Helvetica, Arial;
 							box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.2);
 						}
-
-						paper-tabs::shadow #selectionBar {
-							background-color: #b12d2b;
-						}
-
-						paper-tab::shadow paper-ripple#ink {
-							color: #b12d2b;
-						}
 					</style>
-					<paper-tabs selected="js" class="js-app-tabs">
-						<paper-tab name="js">JavaScript</paper-tab>
-						<paper-tab name="ctojs">Compile-to-JS</paper-tab>
-						<paper-tab name="labs">Labs</paper-tab>
+					<paper-tabs selected="{{selectedTab}}" class="js-app-tabs">
+						<paper-tab data-target="js">JavaScript</paper-tab>
+						<paper-tab data-target="ctojs">Compile-to-JS</paper-tab>
+						<paper-tab data-target="labs">Labs</paper-tab>
 					</paper-tabs>
 
-					<div class="app-lists">
+					<iron-pages selected="{{selectedTab}}" class="app-lists">
 						<div class="js-app-list" data-app-list="js">
 							<p class="applist-intro">
 								These are examples written in pure JavaScript.
@@ -159,6 +159,9 @@
 									<a href="examples/typescript-angular/" data-source="http://typescriptlang.org" data-content="An AngularJS + TypeScript implementation of TodoMVC. The only significant difference between this and the vanilla Angular app is that dependency injection is done via annotated constructors, which allows minification of JavaScript.">TypeScript <br>+ AngularJS</a>
 								</li>
 								<li>
+									<a href="examples/typescript-react/" data-source="http://typescriptlang.org" data-content="An TypeScript + React implementation of TodoMVC. TypeScript is a language for application-scale JavaScript development. It offers classes, modules, interfaces and type-checking at compile time to help you build robust components. This examples showcases how to work with TSX files, which allow us to enjoy native JSX support while working with  TypeScript.">TypeScript <br>+ React</a>
+								</li>
+								<li>
 									<a href="examples/serenadejs/" data-source="https://github.com/elabs/serenade.js" data-content="Serenade.js is yet another MVC client side JavaScript framework. Why do we indulge in recreating the wheel? We believe that Serenade.js more closely follows the ideas of classical MVC than competing frameworks.">Serenade.js</a>
 								</li>
 								<li class="routing">
@@ -169,6 +172,9 @@
 								</li>
 								<li class="routing">
 									<a href="examples/js_of_ocaml/" data-source="http://ocsigen.org/js_of_ocaml/" data-content="Js_of_ocaml is a compiler of OCaml bytecode to Javascript.">js_of_ocaml</a>
+								</li>
+								<li class="routing">
+									<a href="examples/humble/" data-source="https://github.com/go-humble/humble" data-content="Humble is a collection of loosely-coupled tools designed to build client-side and hybrid web applications using GopherJS, which compiles Go code to JavaScript.">Humble + GopherJS</a>
 								</li>
 							</ul>
 						</div>
@@ -263,6 +269,9 @@
 								<li>
 									<a href="examples/componentjs/" data-source="http://componentjs.com" data-content="ComponentJS is a stand-alone MPL-licensed Open Source library for JavaScript, providing a powerful run-time Component System for hierarchically structuring the User-Interface (UI) dialogs of complex HTML5-based Rich Clients (aka Single-Page-Apps) — under maximum applied Separation of Concerns (SoC) architecture principle, through optional Model, View and Controller component roles, with sophisticated hierarchical Event, Service, Hook, Model, Socket and Property mechanisms, and fully independent and agnostic of the particular UI widget toolkit.">ComponentJS</a>
 								</li>
+								<li class="routing">
+									<a href="examples/react-alt/" data-source="http://alt.js.org" data-content="This React example integrates Alt for an example of an application following the Flux architecture.">React + Alt</a>
+								</li>
 								<li>
 									<a href="examples/react-backbone/" data-source="http://facebook.github.io/react/" data-content="This React example integrates Backbone for its model and router. It is a showcase of third-party library integration for developers wishing to use React together with a different JavaScript framework.">React + <br>Backbone.js</a>
 								</li>
@@ -281,19 +290,19 @@
 								<li class="routing">
 									<a href="examples/riotjs/" data-source="http://riotjs.com/" data-content="Riot.js is a React-like user interface micro-library.">Riot</a>
 								</li>
+								<li class="routing">
+									<a href="examples/jsblocks/" data-source="http://jsblocks.com/" data-content="From simple user interfaces to complex single-page applications using faster, server-side rendered and easy to learn framework.">JSBlocks</a>
+								</li>
 							</ul>
 						</div>
 
-					</div>
+					</iron-pages>
 					<ul class="legend">
 						<li><span class="label">R</span> = App also demonstrates routing</li>
 					</ul>
 					<hr>
 					<h2>Real-time</h2>
 					<ul class="applist">
-						<li>
-							<a href="http://todomvcapp.meteor.com" data-source="http://meteor.com" data-content="Meteor is an ultra-simple environment for building modern websites. A Meteor application is a mix of JavaScript that runs inside a client web browser, JavaScript that runs on the Meteor server inside a Node.js container, and all the supporting HTML fragments, CSS rules, and static assets. Meteor automates the packaging and transmission of these different components. And, it is quite flexible about how you choose to structure those components in your file tree.">Meteor</a>
-						</li>
 						<li class="routing">
 							<a href="http://todomvc-socketstream.herokuapp.com" data-source="http://www.socketstream.org" data-content="SocketStream is a fast, modular Node.js web framework dedicated to building realtime single-page apps">SocketStream</a>
 						</li>
